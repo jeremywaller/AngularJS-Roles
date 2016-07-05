@@ -13,3 +13,9 @@ Roles for the current user are defined on a global variable 'CurrentUser.Assigne
 populated by a call to the server when the application launches. If you wish to use a different
 method to retreive roles from the server, edit the angular.forEach loop in the 'compareUserRoles'
 function as necessary.
+
+The included directive allows for roles/permissions to be accessed from any HTML element within the application.
+To use, include the attribute 'required-permission="yourDefinedPermission"' on any element.
+By default, if the user does not have the necessary permission the element will be hidden.
+Optional: The element can be disabled instead of hidden by including the an additional attribute
+'if-unauthorized="disable"'
