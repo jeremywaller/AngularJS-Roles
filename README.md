@@ -19,3 +19,35 @@ To use, include the attribute 'required-permission="yourDefinedPermission"' on a
 By default, if the user does not have the necessary permission the element will be hidden.
 Optional: The element can be disabled instead of hidden by including the an additional attribute
 'if-unauthorized="disable"'
+
+#Route Security
+
+If you use AngularUI Router (which I highly recommend!), the AngularJS Roles Service can be used to prevent unwanted access to routes.
+
+````javascript
+////////////////////
+// Protected Page //
+////////////////////
+
+.state('protectedPage', {
+  url: '/',
+  controller: 'protectedPageController',
+  templateUrl: 'protectedPage.html',
+  onEnter: ['$state', 'roleService', function ($state, roleService) {
+    if (!roleService.hasPermission(this.name)) {
+    $state.go('login');
+    }
+  }]
+})
+
+
+// roleService.js
+
+// Only users with the 'AuthenticatedUser' role will be able to access the protectedPage state.
+function appPermissions(area, subarea) {
+  var permissions = {
+    protectedPage: ['AuthenticatedUser']
+  }
+}
+
+````
